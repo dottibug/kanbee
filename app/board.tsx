@@ -1,6 +1,6 @@
 import { SafeAreaView, Text } from 'react-native';
 
-export default function Board() {
+export default function BoardScreen() {
   return (
     <SafeAreaView>
       <Text>Board Screen</Text>
