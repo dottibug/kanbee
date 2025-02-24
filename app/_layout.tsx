@@ -1,3 +1,4 @@
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PaperProvider } from 'react-native-paper';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -8,24 +9,27 @@ import HeaderButton from '@/components/ui/HeaderButton';
 export default function RootLayout() {
   // NOTE: onPressOut is used due to a bug in React Navigation header buttons on Android
   return (
-    <PaperProvider>
-      <StatusBar style="auto" />
-      <Stack
-        screenOptions={{
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 24,
-          },
-        }}>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            headerRight: () => <HeaderButton />,
-          }}
-        />
-        <Stack.Screen name="board" options={{ title: 'Board' }} />
-      </Stack>
-    </PaperProvider>
+    <SafeAreaProvider>
+      <PaperProvider>
+        <StatusBar style="auto" />
+
+        <Stack
+          screenOptions={{
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              fontSize: 24,
+            },
+          }}>
+          <Stack.Screen
+            name="index"
+            options={{
+              title: 'Home',
+              headerRight: () => <HeaderButton />,
+            }}
+          />
+          <Stack.Screen name="board" options={{ title: 'Board' }} />
+        </Stack>
+      </PaperProvider>
+    </SafeAreaProvider>
   );
 }
