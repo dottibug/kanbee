@@ -3,14 +3,16 @@ import TaskModel from './TaskModel';
 export default class ColumnModel {
   id: string;
   boardId: string;
-  name: string;
+  title: string;
   tasks: TaskModel[];
+  public isOpen: boolean;
 
-  constructor(name: string, boardId: string) {
+  constructor(title: string, boardId: string) {
     this.id = generateColId();
-    this.name = name;
+    this.title = title;
     this.tasks = [];
     this.boardId = boardId;
+    this.isOpen = true;
   }
 
   public addTask(task: TaskModel) {
@@ -19,6 +21,10 @@ export default class ColumnModel {
 
   public addTasks(tasks: TaskModel[]) {
     this.tasks.push(...tasks);
+  }
+
+  public getNumberOfTasks() {
+    return this.tasks.length;
   }
 }
 

@@ -1,7 +1,7 @@
 import { Pressable } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Ionicons } from '@expo/vector-icons';
 
-// TODO: icon color and style array
+// NOTE: onPressOut is used due to a bug in React Navigation header buttons on Android
 
 export default function HeaderButton() {
   const handleAddBoard = () => {

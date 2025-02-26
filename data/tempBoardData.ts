@@ -11,21 +11,13 @@ const col3 = new ColumnModel('Done', tempBoardData.id);
 
 // Tasks
 const task1 = new TaskModel('Task 1', 'Description 1', 'status', col1.id);
-
 const task2 = new TaskModel('Task 2', 'Description 2', 'status', col1.id);
-
 const task3 = new TaskModel('Task 3', 'Description 3', 'status', col1.id);
-
 const task4 = new TaskModel('Task 4', 'Description 4', 'status', col2.id);
-
 const task5 = new TaskModel('Task 5', 'Description 5', 'status', col2.id);
-
 const task6 = new TaskModel('Task 6', 'Description 6', 'status', col3.id);
-
 const task7 = new TaskModel('Task 7', 'Description 7', 'status', col3.id);
-
 const task8 = new TaskModel('Task 8', 'Description 8', 'status', col3.id);
-
 const task9 = new TaskModel('Task 9', 'Description 9', 'status', col3.id);
 
 // Add tasks to columns
