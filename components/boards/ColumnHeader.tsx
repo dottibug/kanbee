@@ -12,7 +12,6 @@ interface ColumnHeaderProps {
 
 export default function ColumnHeader({ column, isOpen }: ColumnHeaderProps) {
   const toggleColumn = useColumnStore((state: ColumnState) => state.toggleColumn);
-  console.log('Column:', column);
 
   const rotateAnim = useRef(new Animated.Value(isOpen ? 1 : 0)).current;
 

@@ -2,18 +2,14 @@ import BaseButton, { ButtonSize } from './BaseButton';
 
 interface SecondaryButtonProps {
   readonly onPress: () => void;
-  readonly size: ButtonSize;
-  readonly children: React.ReactNode;
+  readonly size?: ButtonSize;
+  readonly label: string;
 }
 
 export default function SecondaryButton({
   onPress,
-  size,
-  children,
+  label,
+  size = 'medium',
 }: SecondaryButtonProps) {
-  return (
-    <BaseButton onPress={onPress} size={size} type="secondary" mode="contained">
-      {children}
-    </BaseButton>
-  );
+  return <BaseButton onPress={onPress} size={size} type="secondary" label={label} />;
 }

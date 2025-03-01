@@ -1,21 +1,17 @@
 import { Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { iconButtonStyles } from '@/styles/buttonStyles';
 // NOTE: onPressOut is used due to a bug in React Navigation header buttons on Android
 
-export default function HeaderButton() {
-  const handleAddBoard = () => {
-    console.log('Add Board');
-  };
+interface HeaderButtonProps {
+  readonly onPress: () => void;
+}
 
+export default function HeaderButton({ onPress }: HeaderButtonProps) {
   return (
     <Pressable
-      onPressOut={handleAddBoard}
-      style={({ pressed }) => [
-        {
-          opacity: pressed ? 0.25 : 1,
-        },
-      ]}>
+      onPressOut={onPress}
+      style={({ pressed }) => [iconButtonStyles(pressed).base]}>
       <Ionicons name="add-circle" size={32} />
     </Pressable>
   );

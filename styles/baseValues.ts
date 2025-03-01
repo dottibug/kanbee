@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 export const colors = {
   black: '#000112',
   white: '#FFFFFF',
@@ -6,6 +8,8 @@ export const colors = {
   darkGray: '#2B2C37',
   mainPurple: '#635FC7',
   lightPurple: '#A8A4FF',
+  grayPurple: '#c0bfe8',
+  lightGrayPurple: '#dfdff3',
   red: '#EA5555',
   lightRed: '#FF9898',
 };
@@ -23,7 +27,7 @@ const fontWeights = {
   bold: '700' as const,
 };
 
-export const typography = {
+export const typography = StyleSheet.create({
   xlHeading: {
     fontSize: fontSizes.xlarge,
     fontWeight: fontWeights.bold,
@@ -40,9 +44,13 @@ export const typography = {
     color: colors.black,
   },
   smHeading: {
+    fontSize: fontSizes.small,
+    fontWeight: fontWeights.bold,
+    color: colors.mediumGray,
+  },
+  xsHeading: {
     fontSize: fontSizes.xsmall,
     fontWeight: fontWeights.bold,
-    letterSpacing: 2.4,
     color: colors.mediumGray,
   },
   boldBody: {
@@ -55,4 +63,9 @@ export const typography = {
     fontWeight: fontWeights.medium,
     color: colors.darkGray,
   },
-};
+  inputBody: {
+    fontSize: fontSizes.medium,
+    fontWeight: fontWeights.medium,
+    color: colors.darkGray,
+  },
+});

@@ -1,94 +1,43 @@
-import { colors } from '@/styles/baseValues';
-import { Button as PaperButton } from 'react-native-paper';
+import { baseButtonStyles } from '@/styles/buttonStyles';
+import { Pressable, Text } from 'react-native';
 
-export type ButtonMode = 'contained' | 'outlined' | 'text';
 export type ButtonType = 'primary' | 'secondary' | 'destructive' | 'text';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
-interface PaperButtonProps {
+interface ButtonProps {
   readonly onPress: () => void;
-  readonly mode?: ButtonMode;
+  readonly label: string;
   readonly type?: ButtonType;
   readonly size?: ButtonSize;
-  readonly customStyles?: object;
-  readonly labelStyle?: object;
-  readonly children: React.ReactNode;
 }
 
 export default function BaseButton({
   onPress,
-  mode = 'contained',
+  label,
   type = 'primary',
   size = 'medium',
-  customStyles,
-  labelStyle,
-  children,
-}: PaperButtonProps) {
+}: ButtonProps) {
   return (
-    <PaperButton
+    <Pressable
       onPress={onPress}
-      mode={mode}
-      buttonColor={getButtonColor(type)}
-      textColor={getTextColor(type)}
-      rippleColor={getRippleColor(type)}
-      contentStyle={getContentStyle(size, customStyles)}
-      labelStyle={labelStyle}>
-      {children}
-    </PaperButton>
+      style={({ pressed }) => getButtonStyle(size, type, pressed)}>
+      <Text style={getButtonTextStyle(size, type)}>{label}</Text>
+    </Pressable>
   );
 }
 
-function getContentStyle(size: ButtonSize, customStyles?: object) {
+function getButtonStyle(size: ButtonSize, type: ButtonType, pressed: boolean) {
   return {
-    height: getButtonHeight(size),
-    ...customStyles,
+    ...(pressed ? baseButtonStyles.typesPressed[type] : baseButtonStyles.types[type]),
+    ...baseButtonStyles.button.base,
+    ...baseButtonStyles.sizes[size],
   };
 }
 
-function getButtonHeight(size: ButtonSize) {
-  switch (size) {
-    case 'small':
-      return 32;
-    case 'medium':
-      return 40;
-    case 'large':
-      return 48;
-  }
-}
-function getButtonColor(type: ButtonType) {
-  switch (type) {
-    case 'primary':
-      return colors.mainPurple;
-    case 'secondary':
-      return colors.lightPurple;
-    case 'destructive':
-      return colors.red;
-    case 'text':
-      return 'transparent';
-  }
-}
-
-function getTextColor(type: ButtonType) {
-  switch (type) {
-    case 'secondary':
-      return colors.mainPurple;
-    case 'text':
-      return colors.mediumGray;
-    case 'primary':
-    case 'destructive':
-      return colors.white;
-  }
-}
-
-function getRippleColor(type: ButtonType) {
-  switch (type) {
-    case 'primary':
-      return colors.lightPurple;
-    case 'secondary':
-      return colors.white;
-    case 'destructive':
-      return colors.lightRed;
-    case 'text':
-      return colors.lightGray;
-  }
+function getButtonTextStyle(size: ButtonSize, type: ButtonType) {
+  return {
+    ...baseButtonStyles.textStyle.base,
+    ...baseButtonStyles.textSizes[size],
+    ...baseButtonStyles.textColors[type],
+  };
 }

@@ -6,8 +6,6 @@ import BoardModel from '@/models/BoardModel';
 import { boardStyles } from '@/styles/boardStyles';
 import { useColumnStore } from '@/state/ui/columnStore';
 
-// TODO: Maybe default isOpen to true?
-
 interface BoardProps {
   readonly board: BoardModel;
 }

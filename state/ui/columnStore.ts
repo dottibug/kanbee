@@ -21,7 +21,7 @@ export const useColumnStore = create<ColumnState>((set) => ({
           updatedColumn.isOpen = !col.isOpen;
           return updatedColumn;
         }
-        return col; // Return the column unchanged
+        return col;
       });
 
       return { columns: updatedColumns };
