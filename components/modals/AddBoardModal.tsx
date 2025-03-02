@@ -1,22 +1,19 @@
 import { useModalStore } from '@/state/ui/modalStore';
 import BaseModal from './BaseModal';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { typography } from '@/styles/baseValues';
 import PrimaryButton from '../ui/buttons/PrimaryButton';
 import { useState, useEffect } from 'react';
-import BoardNameInput from '../ui/inputs/BoardNameInput';
-import BoardColumnsInput from '../ui/inputs/BoardColumnsInput';
+import TitledTextInput from '../ui/inputs/TitledTextInput';
+import DynamicTextInputList from '../ui/inputs/DynamicTextInputList';
 import { modalStyles } from '@/styles/modalStyles';
-// TODO 3: Refactor, clean up comments, and push the changes with message "Create add board modal and base modal components"
-
-const title = 'Add New Board';
 
 export default function AddBoardModal() {
+  const { modalType, isOpen, closeModal } = useModalStore();
+  const visible = modalType === MODAL_ADD_BOARD && isOpen;
+
   const [boardName, setBoardName] = useState('');
   const [boardColumns, setBoardColumns] = useState<string[]>([]);
-  const { modalType, isOpen, closeModal } = useModalStore();
-
-  const visible = modalType === 'addBoard' && isOpen;
 
   useEffect(() => {
     if (boardColumns.length === 0) setBoardColumns(['']);
@@ -36,21 +33,39 @@ export default function AddBoardModal() {
     );
     // TODO: add the board to the database
     // NOTE: make sure you do not add a board if the board name is empty
+    // NOTE: make sure you do not add a column if the column name in the array is empty
   };
 
   return (
     <BaseModal visible={visible} onDismiss={closeModal}>
-      <Text style={[typography.lgHeading, { marginBottom: 24 }]}>{title}</Text>
+      <Text style={[typography.lgHeading, { marginBottom: 24 }]}>{TITLE}</Text>
       <View style={modalStyles.modalContentContainer}>
-        <BoardNameInput boardName={boardName} setBoardName={setBoardName} />
-        <BoardColumnsInput
-          boardColumns={boardColumns}
-          setBoardColumns={setBoardColumns}
-          handleDeleteColumn={handleDeleteColumn}
-          handleAddColumn={handleAddColumn}
+        <TitledTextInput
+          subtitle={SUBTITLE_BOARD_NAME}
+          placeholder={PLACEHOLDER_BOARD_NAME}
+          value={boardName}
+          setValue={setBoardName}
         />
-        <PrimaryButton onPress={handleAddBoard} label="Add Board" />
+        <DynamicTextInputList
+          subtitle={SUBTITLE_BOARD_COLUMNS}
+          placeholder={PLACEHOLDER_BOARD_COLUMNS}
+          listValues={boardColumns}
+          setListValues={setBoardColumns}
+          handleDeleteValue={handleDeleteColumn}
+          handleAddValue={handleAddColumn}
+          buttonLabel={BUTTON_ADD_COLUMN}
+        />
+        <PrimaryButton onPress={handleAddBoard} label={BUTTON_ADD_BOARD} />
       </View>
     </BaseModal>
   );
 }
+
+const MODAL_ADD_BOARD = 'addBoard';
+const TITLE = 'Add New Board';
+const SUBTITLE_BOARD_NAME = 'Board Name';
+const PLACEHOLDER_BOARD_NAME = 'e.g. Website Design';
+const SUBTITLE_BOARD_COLUMNS = 'Board Columns';
+const PLACEHOLDER_BOARD_COLUMNS = 'e.g. Todo, In Progress, Done';
+const BUTTON_ADD_COLUMN = 'Add Column';
+const BUTTON_ADD_BOARD = 'Add Board';
