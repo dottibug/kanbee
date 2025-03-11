@@ -1,5 +1,5 @@
-import { baseButtonStyles } from '@/styles/buttonStyles';
-import { Pressable, Text } from 'react-native';
+import { buttonStyles } from '@/styles/buttonStyles';
+import { Pressable, Text, FlexStyle } from 'react-native';
 
 export type ButtonType = 'primary' | 'secondary' | 'destructive' | 'text';
 export type ButtonSize = 'small' | 'medium' | 'large';
@@ -9,35 +9,26 @@ interface ButtonProps {
   readonly label: string;
   readonly type?: ButtonType;
   readonly size?: ButtonSize;
+  readonly width?: FlexStyle['width'];
 }
 
 export default function BaseButton({
   onPress,
   label,
+  width,
   type = 'primary',
   size = 'medium',
 }: ButtonProps) {
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => getButtonStyle(size, type, pressed)}>
-      <Text style={getButtonTextStyle(size, type)}>{label}</Text>
+      style={({ pressed }) => ({
+        ...buttonStyles.getTypeStyles(type, size, pressed),
+        width,
+      })}>
+      {({ pressed }) => (
+        <Text style={buttonStyles.getTextStyles(type, size, pressed)}>{label}</Text>
+      )}
     </Pressable>
   );
-}
-
-function getButtonStyle(size: ButtonSize, type: ButtonType, pressed: boolean) {
-  return {
-    ...(pressed ? baseButtonStyles.typesPressed[type] : baseButtonStyles.types[type]),
-    ...baseButtonStyles.button.base,
-    ...baseButtonStyles.sizes[size],
-  };
-}
-
-function getButtonTextStyle(size: ButtonSize, type: ButtonType) {
-  return {
-    ...baseButtonStyles.textStyle.base,
-    ...baseButtonStyles.textSizes[size],
-    ...baseButtonStyles.textColors[type],
-  };
 }

@@ -6,12 +6,12 @@ import HeaderButton from '@/components/ui/buttons/HeaderButton';
 import { baseStyles } from '@/styles/baseStyles';
 import HeaderTitle from '@/components/ui/HeaderTitle';
 import ModalRouter from '@/components/modals/ModalRouter';
-import { useModalStore } from '@/state/ui/modalStore';
+import { useModalStore, ModalType } from '@/state/ui/modalStore';
 // NOTE: If you use another app-wide provider, make sure it wraps the PaperProvider
 
 export default function RootLayout() {
   const { openModal } = useModalStore();
-  const handleAddBoard = () => openModal('addBoard');
+  const handleAddBoard = () => openModal(ModalType.ADD_BOARD);
 
   return (
     <SafeAreaProvider style={baseStyles.container}>

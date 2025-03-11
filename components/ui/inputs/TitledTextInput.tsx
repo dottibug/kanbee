@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import OutlinedTextInput from './OutlinedTextInput';
-import { typography } from '@/styles/baseValues';
+import { typography } from '@/styles/typography';
 import { modalStyles } from '@/styles/modalStyles';
 
 interface TitledTextInputProps {

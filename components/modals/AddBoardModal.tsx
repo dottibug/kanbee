@@ -1,7 +1,7 @@
 import { useModalStore } from '@/state/ui/modalStore';
 import BaseModal from './BaseModal';
 import { Text, View } from 'react-native';
-import { typography } from '@/styles/baseValues';
+import { typography } from '@/styles/typography';
 import PrimaryButton from '../ui/buttons/PrimaryButton';
 import { useState, useEffect } from 'react';
 import TitledTextInput from '../ui/inputs/TitledTextInput';

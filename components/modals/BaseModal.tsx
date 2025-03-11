@@ -1,5 +1,6 @@
 import { Modal, Portal } from 'react-native-paper';
 import { modalStyles } from '@/styles/modalStyles';
+
 interface ModalProps {
   readonly visible: boolean;
   readonly onDismiss: () => void;

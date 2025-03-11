@@ -1,5 +1,13 @@
-import { colors, typography } from './baseValues';
 import { StyleSheet } from 'react-native';
+import { colors } from './baseStyles';
+import { typography } from './typography';
+
+export const inputStyles = StyleSheet.create({
+  inputContainer: {
+    width: '100%',
+    paddingHorizontal: 24,
+  },
+});
 
 export const outlinedTextInputStyles = (isFocused: boolean) =>
   StyleSheet.create({

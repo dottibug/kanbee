@@ -1,5 +1,5 @@
 import { TextInput } from 'react-native';
-import { colors } from '@/styles/baseValues';
+import { colors } from '@/styles/baseStyles';
 import { useState } from 'react';
 import { outlinedTextInputStyles } from '@/styles/inputStyles';
 
@@ -41,7 +41,7 @@ export default function OutlinedTextInput({
       }}
       numberOfLines={1}
       textAlignVertical="center"
-      // This is a hack to prevent a flickering underline below the text when typing on Android
+      // This is a workaround to prevent a flickering underline below the text when typing on Android
       keyboardType="visible-password"
     />
   );

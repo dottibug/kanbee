@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import KanbeeLogo from './KanbeeLogo';
-import { typography } from '@/styles/baseValues';
+import { typography } from '@/styles/typography';
 
 type HeaderTitleProps = {
   readonly title?: string;

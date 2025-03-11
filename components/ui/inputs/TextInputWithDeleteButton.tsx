@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import OutlinedTextInput from './OutlinedTextInput';
 import IconButton from '../buttons/IconButton';
 import { outlinedTextInputWithDeleteButtonStyles } from '@/styles/inputStyles';

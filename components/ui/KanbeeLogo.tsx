@@ -1,6 +1,5 @@
-import { colors } from '@/styles/baseValues';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
+import { colors } from '@/styles/baseStyles';
 interface KanbeeLogoProps {
   readonly size?: number;
 }
