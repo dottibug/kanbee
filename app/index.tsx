@@ -23,7 +23,6 @@ export default function Home() {
         contentContainerStyle={baseStyles.centerItems}>
         <KanbeeLogo size={108} />
         <Text style={typography.xlHeading}>Kanbee Login</Text>
-        {/* TODO: auth component */}
         <Auth />
         {/* TODO: buttons: forgot password and sign up */}
       </ScrollView>

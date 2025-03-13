@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { colors, typography } from './typography';
+import { colors } from './baseStyles';
+import { typography } from './typography';
 
 export const boardStyles = StyleSheet.create({
   container: {

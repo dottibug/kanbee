@@ -9,6 +9,8 @@ interface OutlinedTextInputProps {
   readonly onChangeText: (text: string) => void;
   readonly maxLength?: number;
   readonly autoFocus?: boolean;
+  readonly autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  readonly autoCorrect?: boolean;
   readonly customStyles?: {};
 }
 
@@ -18,6 +20,8 @@ export default function OutlinedTextInput({
   onChangeText,
   maxLength = 40,
   autoFocus = false,
+  autoCapitalize = 'sentences',
+  autoCorrect = true,
   customStyles,
 }: OutlinedTextInputProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -34,6 +38,8 @@ export default function OutlinedTextInput({
       maxLength={maxLength}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      autoCapitalize={autoCapitalize}
+      autoCorrect={autoCorrect}
       underlineColorAndroid="transparent"
       style={{
         ...outlinedTextInputStyles(isFocused).input,

@@ -1,49 +1,85 @@
-// https://supabase.com/docs/guides/getting-started/tutorials/with-expo-react-native?queryGroups=auth-store&auth-store=async-storage
-
 import { View } from 'react-native';
 import { useState } from 'react';
-import TitledTextInput from '@/components/ui/inputs/TitledTextInput';
+import { supabase } from '@/services/supabase';
+import { router } from 'expo-router';
+import { baseStyles } from '@/styles/baseStyles';
+import { formStyles } from '@/styles/formStyles';
+import EmailInput from '@/components/ui/inputs/EmailInput';
+import PasswordInput from '@/components/ui/inputs/PasswordInput';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton';
 import TextButton from '@/components/ui/buttons/TextButton';
-import { formStyles } from '@/styles/formStyles';
-import { baseStyles } from '@/styles/baseStyles';
 
-// TODO: Complete signup, login, forgot password flows
+// TODO: Refactor inputs; use a base input component that includes a title if the param is added; otherwise no title. Then EmailInput and PasswordInput can extend this base input component.
 // TODO: Input validation
 // TODO: Error handling
 // TODO: Loading state
+// TODO: Forgot password flow
+// TODO: Reconsider your style organization
+// TODO: Start the color app setup to get it up to a similar stage (signup and login auth flow)
 
 export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  // TODO: Loader and error handling
+  const handleLogin = async () => {
     console.log('Login');
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      console.log(`(in Auth.tsx) Error signing in: ${error.message}`);
+      setError(error.message);
+    }
+
+    setLoading(false);
+    router.replace('/dashboard');
   };
 
-  const handleCreateAccount = () => {
+  const handleCreateAccount = async () => {
     console.log('Create Account');
+    setLoading(true);
+
+    const redirectTo = 'kanbee://auth/callback';
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: redirectTo,
+      },
+    });
+
+    if (error) {
+      console.log(`(in Auth.tsx) Error signing up: ${error.message}`);
+      setError(error.message);
+      setLoading(false);
+      router.replace('/');
+    }
+
+    if (!session) {
+      console.log(`(in Auth.tsx) No session data returned from signup`);
+      setError('No session data returned from signup');
+      setLoading(false);
+      router.replace('/');
+    }
+
+    setLoading(false);
   };
 
-  const handleForgotPassword = () => {
-    console.log('Forgot Password');
-  };
+  // TODO: Forgot password flow
+  const handleForgotPassword = () => console.log('Forgot Password');
 
   return (
     <View style={formStyles.formContainer}>
-      <TitledTextInput
-        subtitle={EMAIL}
-        placeholder={EMAIL_PLACEHOLDER}
-        value={email}
-        setValue={setEmail}
-      />
-      {/* TODO: Create password input component (or add parameter to TitledTextInput/OutlinedTextInput to create a password input)*/}
-      <TitledTextInput
-        subtitle={PASSWORD}
-        placeholder={PASSWORD_PLACEHOLDER}
-        value={password}
-        setValue={setPassword}
-      />
+      <EmailInput email={email} setEmail={setEmail} />
+      <PasswordInput password={password} setPassword={setPassword} />
       <PrimaryButton label={LOGIN} onPress={handleLogin} />
       <View style={baseStyles.centerItems}>
         <TextButton label={CREATE_ACCOUNT} onPress={handleCreateAccount} width="50%" />
@@ -53,10 +89,6 @@ export default function Auth() {
   );
 }
 
-const EMAIL = 'Email';
-const EMAIL_PLACEHOLDER = 'Enter your email';
-const PASSWORD = 'Password';
-const PASSWORD_PLACEHOLDER = 'Enter your password';
 const LOGIN = 'Login';
 const CREATE_ACCOUNT = 'Create Account';
 const FORGOT_PASSWORD = 'Forgot Password?';

@@ -8,6 +8,8 @@ interface TitledTextInputProps {
   readonly placeholder: string;
   readonly value: string;
   readonly setValue: (text: string) => void;
+  readonly autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  readonly autoCorrect?: boolean;
 }
 
 export default function TitledTextInput({
@@ -15,6 +17,8 @@ export default function TitledTextInput({
   placeholder,
   value,
   setValue,
+  autoCapitalize = 'sentences',
+  autoCorrect = true,
 }: TitledTextInputProps) {
   return (
     <View style={modalStyles.modalSection}>
@@ -23,6 +27,8 @@ export default function TitledTextInput({
         placeholder={placeholder}
         value={value}
         onChangeText={setValue}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
       />
     </View>
   );

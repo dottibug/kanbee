@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '@/styles/baseStyles';
 import { modalStyles } from '@/styles/modalStyles';
-import { typography, colors } from '@/styles/typography';
+import { typography } from '@/styles/typography';
 import TextInputWithDeleteButton from './TextInputWithDeleteButton';
 import SecondaryButton from '../buttons/SecondaryButton';
 
